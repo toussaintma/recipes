@@ -12,6 +12,7 @@ import torch
 import torch.nn.functional as F
 import torch.nn as nn
 import matplotlib.pyplot as plt
+%matplotlib inline
 ```
 * create a tensor with t = torch.tensor(df.values, dtype=torch.float) df.values is a numpy array
 * do not use torch.Tensor (same by forces dtype as float)
@@ -19,12 +20,15 @@ import matplotlib.pyplot as plt
 * t = torch.unsqueeze(t, 0) to add a dimension (ie typically from a list of scalars to a vector)
 * t = torch.transpose(t, 0, 1) to transpose a vector
 * cast to float with .float() applied to an int tensor
+* torch.cat to concatenate, torch.unbind to get slices along a dimension
+* t.view(dims) to reshape dimensions without touching storage
 
 ## Find a good validation set
 * with scikit-learn use cross validation cross_val_score(clf, df_x, df_y, cv=StratifiedKFold(n_splits=5))
 * check imbalance for classification problems, train with balancing parameters
 * cv = RepeatedStratifiedKFold(n_splits=10, n_repeats=3, random_state=1)
 * in scikit learn, from sklearn.metrics import make_scorer must wrap a custom scoring function to be used by cross_val_score
+* manually for words and text use random.shuffle(list)
 
 ## Feature Reduction
 * find feature importance with Random Forest: forest_importances = pd.Series(clf.feature_importances_, index=df.columns)
@@ -59,6 +63,9 @@ print(f"{loss:.3f}", end="; ")
 * t = torch.where(condition on t, if True, if False) for a if-then on the data
 * use fast.ai for learn rate search with learn.lr_find(suggest_funcs=(valley, slide))
 * softmax is exp() / sum(exp()) is interesting to interpret logits as log(counts of occurences) because softmax(log(counts)) is the probability of occurence
+
+# Sampling from the model
+* torch.multinomial(stats, count, replacement=True) to sample from a probability distribution
 
 ## Matrix operations
 * @ is matrix multiplication in Python
