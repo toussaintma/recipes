@@ -81,7 +81,10 @@ print(f"{loss:.3f}", end="; ")
 ## Visualization
 * show one hot encoding easily with plt.imshow(tensort)
 
-
+## Initialization, activations and gradients
+* @torch.no_grad can be used as decorater for the funciton defined immediately after, use with torch.no_grad(): for code blocks
+* check logits, activations and preactivations for dead neurons and excentric logits
+* use torch.nn.init.kaiming_normal_ for initialization well distributed with torch.nn.init.calculate_gain to fight against all the reductive functions like tanh. A simpler but powerful way is to multiply weights by sqrt(gain/fan_in)
 
 ## TODO
 * TODO topic of initializing the weights in Pytorch
