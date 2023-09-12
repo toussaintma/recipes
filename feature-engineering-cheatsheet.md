@@ -14,7 +14,7 @@
 * from sklearn import tree
 * import seaborn as sns for visualization especially with lots of features
 
-## Data Discovery
+## Data Discovery (Numbers)
 
 - Most can be done with Pandas
 - Domain knowledge is key to understand the data and values (almost all of titanic can be done with only the name column!)
@@ -34,6 +34,21 @@
     - tree.plot_tree(clf, feature_names=train_x.columns, filled=True) and plt.show() to show the tree
 - automating data regularization with scikit-learn: clf = make_pipeline(KNNImputer(), RobustScaler(), XGBClassifier()) gives automated names to steps
 - the same with named steps: pipe = Pipeline(steps=[("scaler", KNNImputer()), ("pca", RobustScaler(), ("logistic", XGBClassifier())])
+
+## Data Discovery (Texts)
+
+- Pandas has .unique() for text identifiers 
+- Pytorch and Transformers DataSets: dataset[split].unique(column), dataset.rename_column(original_column_name="before", new_column_name="after"), dataset.filter(lambda), dataset.map(lambda)
+- to analyze the length of text fields, add a column and sort based on it: 
+  - def compute_length(example):
+    - return {"length": len(example["column"].split())}
+  - dataset = dataset.map(compute_length)
+  - dataset["train"].sort("length")[:3] # shows top 3 texts by length
+  - dataset = dataset.filter(lambda x: x["length"] > 30) # remove lines shorter than 30
+  - print(dataset.num_rows)
+- with html escape characters: import html and then use html.unescape()
+- to switch to Pandas use dataset.set_format("pandas") and dataset.reset_format() when done
+- or use the direct functions Dataset.from_pandas()
 
 ## Data Visualization
 
